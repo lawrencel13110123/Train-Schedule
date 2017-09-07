@@ -56,7 +56,7 @@
 	  		console.log("nextArrival " + nextArrival); 
 	 	 
 
-	    database.ref().push({
+	    database.ref().child("trains").push({
 	      trainName : trainName,
 	      destination : destination,
 	      time : time,
@@ -75,7 +75,7 @@
 	}); 
 
 
-	database.ref().on("child_added", function(snapshot) {
+	database.ref().child("trains").on("child_added", function(snapshot) {
   		console.log("this is the snapshot: " + snapshot)
   		console.log(snapshot.val())
   		//dont put words in front of object arrays or else it will return [object Object]
@@ -116,7 +116,9 @@
 	$(document.body).on("click", ".buttons", function() {
 		var trainRemove = $(this).attr("removeBtn");
 			console.log("trainRemove" + trainRemove); 
-		database.ref().child(trainRemove).remove(); 
+		database.ref().child("trains").child(trainRemove).remove(); 
 		location.reload(); 
 	});
+
+
 
